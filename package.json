@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "backend for live chat app",
   "main": "server.js",
+  "type": "module",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/aayushjain7/LiveChat-mern/issues"
   },
-  "homepage": "https://github.com/aayushjain7/LiveChat-mern#readme"
+  "homepage": "https://github.com/aayushjain7/LiveChat-mern#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.9",
+    "nodemon": "^2.0.7"
+  }
 }
