@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Messages from './dbMessages.js';
 import Pusher from 'pusher';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 9000;
@@ -16,11 +17,7 @@ const pusher = new Pusher({
 
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  next();
-});
+app.use(cors());
 
 const MONGO_URI = 'mongodb+srv://aayush:aayush@cluster0.snoge.mongodb.net/livechatdb?retryWrites=true&w=majority';
 mongoose.connect(MONGO_URI, {
@@ -43,6 +40,8 @@ db.once('open', () => {
       pusher.trigger('messages', 'inserted', {
         name: msgDetails.name,
         message: msgDetails.message,
+        timestamp: msgDetails.timestamp,
+        received: msgDetails.received,
       });
     } else {
       console.log('Error triggering Pusher.');
