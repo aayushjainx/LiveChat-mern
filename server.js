@@ -1,17 +1,53 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import Messages from './dbMessages.js';
+import Pusher from 'pusher';
 
 const app = express();
 const port = process.env.PORT || 9000;
 
+const pusher = new Pusher({
+  appId: '1203644',
+  key: '10d3b72df87d15f0af96',
+  secret: '76fc6bd5192f0efd600b',
+  cluster: 'ap2',
+  useTLS: true,
+});
+
 app.use(express.json());
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  next();
+});
 
 const MONGO_URI = 'mongodb+srv://aayush:aayush@cluster0.snoge.mongodb.net/livechatdb?retryWrites=true&w=majority';
 mongoose.connect(MONGO_URI, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.once('open', () => {
+  console.log('MONGODB connected.');
+  const msgCollection = db.collection('messagecontents');
+  const changesStream = msgCollection.watch();
+
+  changesStream.on('change', (change) => {
+    console.log(change);
+    if ((change.operationType = 'insert')) {
+      const msgDetails = change.fullDocument;
+      pusher.trigger('messages', 'inserted', {
+        name: msgDetails.name,
+        message: msgDetails.message,
+      });
+    } else {
+      console.log('Error triggering Pusher.');
+    }
+  });
 });
 
 app.get('/', (req, res) => res.status(200).send('hello world'));
