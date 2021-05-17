@@ -1,28 +1,44 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "backend for live chat app",
-  "main": "server.js",
-  "type": "module",
-  "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aayushjain7/LiveChat-mern.git"
-  },
-  "author": "Aayush",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/aayushjain7/LiveChat-mern/issues"
-  },
-  "homepage": "https://github.com/aayushjain7/LiveChat-mern#readme",
+  "name": "whatsapp-clone",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.12.9",
-    "nodemon": "^2.0.7",
-    "pusher": "^5.0.0"
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "firebase": "^8.6.1",
+    "pusher-js": "^7.0.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
